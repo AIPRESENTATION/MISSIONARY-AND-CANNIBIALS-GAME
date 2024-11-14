@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html >
+    <head>
+        <title > "WELOWOME TO HOME PAGE"
+        </title>
+    </head>
+    <style>
+      body{
+        background-image: url('hot.jpg');
+        background-size:cover;
+        background-position:initial;
+        background-repeat: no-repeat;
+        height: 100%;
+        margin: 0;     
+        
+      }
+    </style>
+   <body >
+<style>
+  h1{
+    background-position: 0%;
+    background-image:url('what.jpg');
+    text-shadow:darkmagenta;
+    color:cornsilk
+  }
+  </style>
+   
+
+    <H1 style="text-align: center;" style="margin: 12px;"  >  &#9733  &#9733  &#9733<U> MISSIONARY</U> <u> AND</u> <u>CANNIBIALS</u> <u>LOGIC GAME</u>
+      &#9733 &#9733 &#9733
+    </H1>
+    <img src="mandc.jpg" height="550" width="900" style="padding-left: 160px;" >
+    <H2 style="COLOR:beige" style="padding-left:14px ;"><PRE><I><B>The Missionaries and Cannibals problem is a classic puzzle that involves a group of missionaries and cannibals trying<br> to cross a river using a boat. The puzzle is often used to demonstrate problem-solving techniques, particularly in<br> algorithms and artificial intelligence.</B></I></pre></H2>
+    <h2 style="padding-left: 10px;" style="color: cornsilk;">&#9733 CONSTRAINS OF THIS GAME &#9733
+    </h2> 
+    <h2 style="color:bisque"><pre><ol>
+      <li>At any time, missionaries must never be outnumbered by cannibals on either side of the river,<br> because the cannibals would eat the missionaries.</li>
+      <li>The boat can carry at most two people at a time.</li>
+    <li>The boat can be rowed by either one or two people, but the boat must always be rowed back by someone.</li></ol></pre></h2>
+  <OL>
+    <H2 style="color: beige;"> &#9733  GAME FLOW  &#9733</H2>
+<H2 style="color: beige;"><LI>Initial Setup:</LI></H2>
+<UL style="color: beige;">
+<LI>There are 3 missionaries and 3 cannibals on the left bank of the river.</LI>
+<LI>The boat can carry up to 2 people at a time.</LI>
+<LI>The goal is to move all 3 missionaries and 3 cannibals to the right side of the river without violating the rules.</LI>
+</UL>
+<H2><LI>Game Rules:</LI></H2>
+<UL style="color: beige;">
+<LI>If at any time the number of cannibals exceeds the number of missionaries on either side of the river,<BR> the cannibals will "eat" the missionaries, and the player loses the game.</LI>
+<LI>The boat cannot travel with no people on board.</LI>
+<LI>Players can move missionaries and/or cannibals back and forth.</LI>
+</UL>
+<H2><LI>Player Interaction:</LI></H2>
+<UL style="color: beige;">
+<LI>The player is asked to input how many missionaries and cannibals to move at each step.</LI>
+<LI>The program checks if the move is valid (i.e., not exceeding the boat's capacity and ensuring no side of the river has more cannibals than missionaries.</LI>
+</UL>
+<H2><LI>Winning and Losing Conditions:</LI></H2>
+<UL style="color: beige;">
+<LI>The game is won when all the missionaries and cannibals have successfully crossed to the right bank.</LI>
+<LI>The game is lost if the cannibals outnumber the missionaries on either side of the river during any move.</LI>
+</UL>
+<H2><LI>Invalid Inputs:</LI></H2>
+<UL style="color: beige;">
+</LI>If the player enters invalid input like trying to move too many people or a negative number, they will be asked to re-enter the values.</LI>
+</UL>
+  </OL>
+    </body>
+      
+        <H2 style="color: beige" style="padding-right: 14px;">&#9733 MISSIONARY AND CANNIBIALS CODE:</H2>
+      
+    <a href="king.html" style="padding-left: 28px;"><button ><I> CLICK HERE TO DIRECT CODE</I></button>
+         </a> 
+         <h2 style="color: beige" style="padding-right: 14px;">&#9733 THE ABOVE LINK IS MISSIONARIES AND CANNIBIALS PRACTICAL GAME CODE &#9733</h2>
+          
+       <br>
+       <H1 style="text-align: center;" style="background-color: blueviolet;"><B> &#9733 :MISSIONARY AND CANNIBIALS VISUAL CODE 
+        :  &#9733</B></H1>
+        <BR>
+          <img src="visual .jpg" alt="graphical interface of missionaries and cannibals visual code" height="550" width="900" style="padding-left: 160px;" >
+          <br>
+          <br>
+          <style>
+            h2{
+              color: antiquewhite;
+            }
+          </style>
+          <h2 style="padding: 35PX;">
+            &#9733 VISUALIZED  PYTHON CODE LINK IS BELOW :</h2>
+        <a href="queen.html" style="padding-left:28px;"><button> <i> &#8658 CLICK ON THE LINK TO DIRECT VISUAL CODE
+        </i></button></a>
+        <H2 style="COLOR:beige">MAIN COMPONENTS OF CODE:</H2>
+        <OL>
+          <H2><LI>Pygame Initialization:</LI></H2>
+          <UL style="color: beige;"><LI>The Pygame library is initialized and a screen of size 800x600 pixels is created.<BR> The title of the window is set to "Missionaries and Cannibals."</LI></UL>
+          <H2><LI>Character Class (Characters):</LI></H2>  
+          <UL style="COLOR:beige">
+            <LI>This class contains the logic for the game, including the current state of the game (how many missionaries and cannibals are on each bank, the boat's position, etc.).</LI>
+            <LI>missionaries_left and cannibals_left: Track how many missionaries and cannibals are left on the starting bank.</LI>
+             <LI> missionaries_right and cannibals_right: Track how many missionaries and cannibals have been moved to the destination bank.</LI>
+             <LI> boat_side: Tracks the boat's current side (either 'left' or 'right')</LI>
+              <LI>   boat_load: Holds the characters currently in the boat.</LI>
+              <H4><LI>Methods in this class include:</LI></H4>
+              <LI>
+                restart_game(): Resets the game to its initial state.</LI>
+<LI>draw(): Draws the current game state on the screen, including the characters and boat.</LI>
+<LI>select_character(): Allows the player to click on a character to select them for the boat.</LI>
+<LI>check_button_click(): Handles button clicks for loading, unloading, and restarting the game.</LI>
+<LI>move_boat(): Moves the boat from one side to the other when the space bar is pressed.</LI>
+<LI>check_game_over(): Checks if the game is lost due to cannibals outnumbering missionaries on either side.</LI>
+<LI>check_win_condition(): Checks if all characters are safely transported to the right bank.</LI>
+          </UL>
+      <H2 style="color: beige;"><LI>MAIN LOOP:</H2></LI>
+      <UL style="COLOR:beige">
+        <LI>This loop handles the game events (like mouse clicks and key presses) and continuously updates the game state.<BR><LI>This loop handles the game events (like mouse clicks and key presses) and continuously updates the game state.</LI>
+<H4><LI>It includes:</LI></H4>
+<LI>Event handling to manage mouse clicks for character selection and button actions.</LI>
+<LI>Key press handling for moving the boat with the SPACE key.</LI>
+  <LI>Continuous drawing of the game state using characters.draw().</LI>    
+      </UL>   
+    <H2><LI>USER INTERFACE:</LI></H2>   
+    <Ul style="COLOR:beige">
+      <LI>There are several buttons at the bottom of the screen:</LI>
+      <LI>Load: Adds selected characters to the boat.</LI>
+      <LI>Unload: Unloads characters from the boat to the current bank.</LI>
+      <LI>Restart: Resets the game to its initial state.</LI>
+    </Ul>
+    <h2><li>WINNING AND LOSSING CONDITION:</li></h2>
+    <UL style="COLOR:beige">
+      <LI>The game checks whether the mission is complete (all characters safely transported to the right side).</LI>
+<LI>It also checks for a losing condition (cannibals outnumbering missionaries on either side).</LI>
+    </UL>
+
+        </OL>
+        <h2 style="padding-left: 30PX;">
+                     &#9733 VS CODE DIRECTORY LINK &#9733
+        </h2>
+        <a href="vscode://" style="padding-left: 35PX;"><button
+          > &#9733 CLICK ON LINK TO DIRECT VS CODE</button></a>
+        <br>
+        
+        <footer STYLE="text-align: center;">
+           <I><h2>&#9733 &#9733 &#9733 &#9733 &#9733 &#9733 THIS IS ALL ABOUT THE MISSIONARIES AND CANNIBIALS GAME &#9733 &#9733 &#9733 &#9733 &#9733 &#9733</I>
+           </h2>
+        </footer>
+        </body>
+ </html>   

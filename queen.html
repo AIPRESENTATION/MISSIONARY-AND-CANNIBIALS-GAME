@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<title>
+    VISUALIZED CODE OF MISSIONARY AND CANNIBIALS </title>
+    <head>
+    <style>
+       
+        body{
+            background-image: url(" hh.jpg");
+            background-position: center;
+            background-position: initial;
+            background-repeat: no-repeat;
+            background-size:cover;
+            height: 70%;
+
+        }
+    </style>
+        <h1 style="text-align: center;"><b><I><u> &#9733 &#9733 &#9733  CODE OF MISSIONARY AND CANNIBIALS  &#9733 &#9733 &#9733</u>
+        </I></b></h1>
+    </head>
+  
+<BODY style="color: rgb(211, 185, 153);">
+<PRE>
+    <h3>
+import pygame
+import sys
+# Constants
+WIDTH, HEIGHT = 800, 600
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BLUE = (0, 0, 255)
+GRAY = (200, 200, 200)
+BOAT_CAPACITY = 2
+
+# Initialize Pygame
+pygame.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Missionaries and Cannibals")
+font = pygame.font.Font(None, 36)
+
+# Load images
+missionary_img = pygame.image.load('missionary.png')  # Load your missionary image
+cannibal_img = pygame.image.load('cannibal.png')      # Load your cannibal image
+boat_img = pygame.image.load('boat.png')              # Load your boat image
+win_img = pygame.image.load('win.jpeg')          
+
+# Resize images if necessary
+missionary_img = pygame.transform.scale(missionary_img, (30, 50))
+cannibal_img = pygame.transform.scale(cannibal_img, (30, 50))
+boat_img = pygame.transform.scale(boat_img, (100, 50))
+
+# Display game instructions on console
+print("Instructions:")
+print("1. Click on a missionary or cannibal to select them for loading.")
+print("2. Use the 'Load' button to place selected characters on the boat.")
+print("3. Use the 'Unload' button to remove characters from the boat.")
+print("4. Press SPACE to move the boat across the river.")
+print("5. Objective: Safely transport all characters without cannibals outnumbering missionaries.")
+
+class Characters:
+    def __init__(self):
+        self.restart_game()
+
+    def restart_game(self):
+        self.missionaries_left = 3
+        self.cannibals_left = 3
+        self.missionaries_right = 0
+        self.cannibals_right = 0
+        self.boat_side = 'left'
+        self.boat_load = []
+        self.selected_characters = []
+        self.game_over = False
+        self.winner = False
+
+    def draw(self):
+        screen.fill(WHITE)
+        pygame.draw.rect(screen, BLUE, (0, HEIGHT // 2, WIDTH, HEIGHT // 2))
+
+        # Draw characters on the left bank
+        for i in range(self.missionaries_left):
+            screen.blit(missionary_img, (100 + i * 40, HEIGHT // 2 - 50))
+        for i in range(self.cannibals_left):
+            screen.blit(cannibal_img, (100 + i * 40, HEIGHT // 2 + 10))
+
+        # Draw characters on the right bank
+        for i in range(self.missionaries_right):
+            screen.blit(missionary_img, (WIDTH - 140 - i * 40, HEIGHT // 2 - 50))
+        for i in range(self.cannibals_right):
+            screen.blit(cannibal_img, (WIDTH - 140 - i * 40, HEIGHT // 2 + 10))
+
+        # Draw the boat
+        boat_x = 250 if self.boat_side == 'left' else WIDTH - 350
+        screen.blit(boat_img, (boat_x, HEIGHT // 2 + 10))
+
+        # Draw characters on the boat
+        for i, character in enumerate(self.boat_load):
+            if character == 'M':
+                screen.blit(missionary_img, (boat_x + 10 + i * 30, HEIGHT // 2 + 20))
+            elif character == 'C':
+                screen.blit(cannibal_img, (boat_x + 10 + i * 30, HEIGHT // 2 + 20))
+
+        # Display Labels
+        left_label = font.render("Left Bank", True, BLACK)
+        right_label = font.render("Right Bank", True, BLACK)
+
+        screen.blit(left_label, (100, HEIGHT // 2 - 100))
+        screen.blit(right_label, (WIDTH - 200, HEIGHT // 2 - 100))
+
+        self.display_message()
+        self.draw_buttons()
+
+        pygame.display.flip()
+
+    def display_message(self):
+        if self.check_win_condition():
+            message = "You Win! All characters are safely transported!"
+            screen.blit(win_img, (WIDTH // 2 - win_img.get_width() // 2, HEIGHT // 2 - 100))
+        elif self.game_over:
+            message = "Game Over: Cannibals outnumber missionaries!"
+            text_surface = font.render(message, True, BLACK)
+            screen.blit(text_surface, (WIDTH // 2 - text_surface.get_width() // 2, HEIGHT // 4))
+        else:
+            message = ""
+
+        if message:
+            text_surface = font.render(message, True, BLACK)
+            screen.blit(text_surface, (WIDTH // 2 - text_surface.get_width() // 2, 20))
+
+    def draw_buttons(self):
+        # Load button
+        load_button = pygame.Rect(WIDTH // 2 - 120, HEIGHT - 70, 100, 50)
+        pygame.draw.rect(screen, GRAY, load_button)
+        load_text = font.render("Load", True, BLACK)
+        screen.blit(load_text, (load_button.x + 25, load_button.y + 10))
+        
+        title_surface = font.render("MISSIONARIES AND CANNIBIALS GAME:", True, BLACK)
+        screen.blit(title_surface, (HEIGHT // 4- title_surface.get_height() // 2, 22))
+
+        # Unload button
+        unload_button = pygame.Rect(WIDTH // 2 + 20, HEIGHT - 70, 100, 50)
+        pygame.draw.rect(screen, GRAY, unload_button)
+        unload_text = font.render("Unload", True, BLACK)
+        screen.blit(unload_text, (unload_button.x + 15, unload_button.y + 10))
+
+        # Restart button
+        restart_button = pygame.Rect(WIDTH // 2 - 60, HEIGHT - 130, 120, 50)
+        pygame.draw.rect(screen, GRAY, restart_button)
+        restart_text = font.render("Restart", True, BLACK)
+        screen.blit(restart_text, (restart_button.x + 20, restart_button.y + 10))
+
+    def select_character(self, pos):
+        # Check if clicking on left or right bank to select a character
+        if self.boat_side == 'left' and len(self.selected_characters) < BOAT_CAPACITY:
+            if 100 <= pos[0] <= 220 and HEIGHT // 2 - 50 <= pos[1] <= HEIGHT // 2:  # Missionary area
+                if self.missionaries_left > 0:
+                    self.selected_characters.append('M')
+                    self.missionaries_left -= 1
+            elif 100 <= pos[0] <= 220 and HEIGHT // 2 + 10 <= pos[1] <= HEIGHT // 2 + 60:  # Cannibal area
+                if self.cannibals_left > 0:
+                    self.selected_characters.append('C')
+                    self.cannibals_left -= 1
+        elif self.boat_side == 'right' and len(self.selected_characters) < BOAT_CAPACITY:
+            if WIDTH - 220 <= pos[0] <= WIDTH - 100 and HEIGHT // 2 - 50 <= pos[1] <= HEIGHT // 2:
+                if self.missionaries_right > 0:
+                    self.selected_characters.append('M')
+                    self.missionaries_right -= 1
+            elif WIDTH - 220 <= pos[0] <= WIDTH - 100 and HEIGHT // 2 + 10 <= pos[1] <= HEIGHT // 2 + 60:
+                if self.cannibals_right > 0:
+                    self.selected_characters.append('C')
+                    self.cannibals_right -= 1
+
+    def check_button_click(self, pos):
+        if pygame.Rect(WIDTH // 2 - 120, HEIGHT - 70, 100, 50).collidepoint(pos):
+            self.load_characters()
+        elif pygame.Rect(WIDTH // 2 + 20, HEIGHT - 70, 100, 50).collidepoint(pos):
+            self.unload_characters()
+        elif pygame.Rect(WIDTH // 2 - 60, HEIGHT - 130, 120, 50).collidepoint(pos):
+            self.restart_game()  # Restart the game when the restart button is clicked
+
+    def load_characters(self):
+        if len(self.selected_characters) > 0 and len(self.boat_load) < BOAT_CAPACITY:
+            self.boat_load.extend(self.selected_characters)
+            self.selected_characters.clear()
+
+    def unload_characters(self):
+        while self.boat_load:
+            character = self.boat_load.pop()
+            if self.boat_side == 'left':
+                if character == 'M':
+                    self.missionaries_left += 1
+                elif character == 'C':
+                    self.cannibals_left += 1
+            else:
+                if character == 'M':
+                    self.missionaries_right += 1
+                elif character == 'C':
+                    self.cannibals_right += 1
+
+    def move_boat(self):
+        if 1 <= len(self.boat_load) <= BOAT_CAPACITY:
+            self.boat_side = 'right' if self.boat_side == 'left' else 'left'
+
+    def check_game_over(self):
+        if (self.missionaries_left > 0 and self.cannibals_left > self.missionaries_left) or \
+           (self.missionaries_right > 0 and self.cannibals_right > self.missionaries_right):
+            return True
+        return False
+
+    def check_win_condition(self):
+        return self.missionaries_right == 3 and self.cannibals_right == 3
+
+def main():
+    characters = Characters()
+    clock = pygame.time.Clock()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                characters.select_character(event.pos)
+                characters.check_button_click(event.pos)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and not characters.game_over and not characters.winner:
+                    characters.move_boat()
+                    characters.unload_characters()  # Unload after moving the boat
+                    characters.game_over = characters.check_game_over()  # Check for game over after unloading
+
+        characters.draw()
+        clock.tick(30)
+
+main()
+</PRE>
+</h3>
+<h2><b><big>&#8658  OUTPUT OF VISUAL CODE:</big></b></h2>
+ <img src="visual .jpg" width="900px" height="550px" style="padding-left: 86px" marigin="3PX">
+ <h1 style="text-align: center;">
+    &#9733 &#9733 &#9733 END OF THE CODE &#9733  &#9733  &#9733
+</h1>
+
+</BODY>
+
+
+
+
+</html>
